@@ -43,8 +43,8 @@ class Product:
 
 
     def __eq__(self, other):
-        if self.product_id == other.getProductId():
-            return
+      return self.product_id == other.getProductId()
+
 
 
 
