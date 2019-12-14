@@ -1,6 +1,7 @@
 from models import user
 
 
+
 class DataBase:
     def __new__(cls):
         if not hasattr(cls, 'instance'):
