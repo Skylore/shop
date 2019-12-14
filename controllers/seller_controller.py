@@ -1,15 +1,11 @@
 from models import product
 from db import db
+from exceptions import ProductNotFound
 
 Product = product.Product
 DataBase = db.DataBase()
+ProductNotFoundException = ProductNotFound.ProductNotFoundException
 
 
 class SellerController:
-    def __init__(self, user):
-        self.__user = user
-
-    def getUser(self):
-        return self.__user
-
-    """Implement NON static methods here"""
+    pass

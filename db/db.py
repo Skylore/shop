@@ -6,7 +6,7 @@ class DataBase:
         if not hasattr(cls, 'instance'):
             cls.instance = super(DataBase, cls).__new__(cls)
             cls.instance.users = dict()
-            cls.instance.products = []
+            cls.instance.products = dict()
             cls.instance.product_requests = []
             cls.instance.sold_products = []
             cls.instance.support_requests = []
@@ -15,9 +15,9 @@ class DataBase:
     def login(self, login, password):
         if login not in self.users:
             raise FileNotFoundError
-        elif self.users[login].password != password:
+        elif self.users[login].getPassword() != password:
             raise PermissionError
-        elif self.users[login].password == password:
+        elif self.users[login].getPassword() == password:
             return self.users[login]
 
     def sign_up(self, name: str, login: str, password: str) -> user.User:
