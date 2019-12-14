@@ -34,8 +34,11 @@ class User:
     def setRole(self, role):
         self.__role = role
 
-    def setBlock(self, block):
-        self.__is_blocked = block
+    def block(self):
+        self.__is_blocked = True
+
+    def unblock(self):
+        self.__is_blocked = False
 
     def __str__(self):
         return 'Name = {}, Login = {}, Password = {}, Role = {}, {}'.format(self.__name,self.__login,self.__password,self.__role,self.__is_blocked)
