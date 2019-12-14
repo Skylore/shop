@@ -44,7 +44,7 @@ class Product:
 
     def __eq__(self, other):
         if self.product_id == other.getProductId():
-            return other
+            return
 
 
 
