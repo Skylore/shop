@@ -25,7 +25,7 @@ class DataBase:
         if login in self.users:
             raise AssertionError
 
-        u = user.User(name, login, password, 'customer', False)
+        u = user.User(name, login, password, 'customer')
         self.users[login] = u
 
         return u
