@@ -6,8 +6,8 @@ class DataBase:
     def __new__(cls):
         if not hasattr(cls, 'instance'):
             cls.instance = super(DataBase, cls).__new__(cls)
-            cls.instance.users = dict()
-            cls.instance.products = dict()
+            cls.instance.users = dict()      # {login: user}
+            cls.instance.products = dict()   # {product_id: product}
             cls.instance.product_requests = []
             cls.instance.sold_products = []
             cls.instance.support_requests = []

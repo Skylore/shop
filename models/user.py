@@ -21,7 +21,6 @@ class User:
     def getBlock(self):
         return self.__is_blocked
 
-
     def setName(self, name):
         self.__name = name
 
