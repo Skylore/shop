@@ -1,0 +1,2 @@
+class SupportRequestNotFoundException(Exception):
+    pass

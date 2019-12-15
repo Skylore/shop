@@ -1,16 +1,19 @@
 from models import user
 
 
-
 class DataBase:
     def __new__(cls):
         if not hasattr(cls, 'instance'):
+
             cls.instance = super(DataBase, cls).__new__(cls)
             cls.instance.users = dict()      # {login: user}
             cls.instance.products = dict()   # {product_id: product}
             cls.instance.product_requests = []
-            cls.instance.sold_products = []
-            cls.instance.support_requests = []
+            cls.instance.support_requests = dict()
+        else:
+            # handle = open('../db/logs.txt', 'r')
+            pass
+
         return cls.instance
 
     def login(self, login, password):

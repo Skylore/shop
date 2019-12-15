@@ -14,7 +14,7 @@ class Product:
         return self.__product_name
 
 
-    def getProductDesk(self):
+    def getProductDesc(self):
         return self.__product_desc
 
 

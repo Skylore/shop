@@ -2,15 +2,20 @@ import random
 
 from models import product
 from db import db
-from exceptions import ProductNotFound
+from exceptions import ProductNotFound, ResolvedProductRequestException
 
 Product = product.Product
 DataBase = db.DataBase()
 ProductNotFoundException = ProductNotFound.ProductNotFoundException
+ResolvedProductRequestException = ResolvedProductRequestException.ResolvedProductRequestException
 
 
 class SellerController:
     def __init__(self, user):
+
+        if user.getRole() != 'seller':
+            raise PermissionError
+
         self.__user = user
 
     def add_product(self, product_name, product_desc):
@@ -21,7 +26,7 @@ class SellerController:
                 prod = Product(prod_id, product_name, product_desc, self.__user.getLogin())
                 DataBase.products[prod.getProductId()] = prod
 
-                break
+                return prod
 
     def remove_product(self, product_id):
 
@@ -46,4 +51,40 @@ class SellerController:
 
         return (i for i in DataBase.product_requests
                 if i.getStatus() == 'active'
-                and i.getProduct().getOwner() == self.__user.getLogin)
+                and i.getProduct().getOwner() == self.__user.getLogin())
+
+    def accept_request(self, product_id):
+
+        for i in DataBase.product_requests:
+            prod = i.getProduct()
+            if prod.getProductId() == product_id:
+                if prod.getOwner() == self.__user.getLogin():
+                    i.sell()
+                    return
+                else:
+                    raise PermissionError
+
+        raise ProductNotFoundException
+
+    def reject_request(self, product_id):
+
+        for i in DataBase.product_requests:
+            prod = i.getProduct()
+            if prod.getProductId() == product_id:
+                if prod.getOwner() == self.__user.getLogin():
+                    if i.getStatus() == 'active':
+                        self.add_product(prod.getProductName(), prod.getProductDesc())
+                        DataBase.product_requests.remove(i)
+
+                        return
+                    else:
+                        raise ResolvedProductRequestException
+                else:
+                    raise PermissionError
+
+        raise ProductNotFoundException
+
+
+
+
+

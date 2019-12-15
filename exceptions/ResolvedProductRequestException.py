@@ -1,0 +1,2 @@
+class ResolvedProductRequestException(Exception):
+    pass
